@@ -10,6 +10,7 @@ import logging
 import time
 
 import zmq
+from .ZmqExceptions import ZmqTimeoutException
 
 logger = logging.getLogger("zmqrpc")
 
@@ -178,7 +179,7 @@ class ZmqSender(object):
                             return self.handle_response(response_message_json)
                 # Some unexpected socket related error occurred. Recreate the REQ socket.
                 self.recreate_req_socket = True
-                raise Exception("No response received on ZMQ Request to end point {0} in {1} seconds. Discarding message. Marking REQ socket to be recreated on next try.".format(self.zmq_req_endpoints, time_out_waiting_for_response_in_sec))
+                raise ZmqTimeoutException("No response received on ZMQ Request to end point {0} in {1} seconds. Discarding message. Marking REQ socket to be recreated on next try.".format(self.zmq_req_endpoints, time_out_waiting_for_response_in_sec))
 
     def send(self, message, time_out_waiting_for_response_in_sec=60):
         # Create sockets if needed. Raise an exception if any problems are encountered
