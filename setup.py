@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='pyzmqrpc',
     packages=['zmqrpc'],
-    version='2.0.0',
+    version='2.0.1',
     include_package_data=True,
     description='A simple ZMQ RPC extension with JSON for message serialization',
     author='J Verhoeven',
